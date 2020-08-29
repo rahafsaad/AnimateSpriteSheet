@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<!-- كود مبسط جدا بدون استخدام اي مصادر خارجية وايضا سهل للقراءه والتعديل -->
+
+<!-- Very simple code no need for APIs -->
+<!-- The code is easy to read and easy to edit -->
+
+<head><meta chrerst="UTF-8">
+<title> Sprite Animation</title>
+<link rel="icon" href="Images/360.png">
+<style>
+body{
+background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,253,239,1) 100%);}
+.center {
+   text-align:center;
+  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+hr {border:1px solid #F9F3E8;}
+h1 { text-shadow: 1px 1px 3px #000000; color: white; opacity:0.7;font-family:Arial Narrow, sans-serif; font-variant: small-caps;}
+#footer {  
+ cursor:no-drop;font-family:monospace;  
+color:gray;  
+   display: block;
+  position: fixed;
+  bottom: 0; opacity:0.5;
+  width: 100%;
+font-size: 12px;
+  } 
+#myImg { position: absolute; left:40%;}
+.button {position: relative; display: left:50%;block; top:310px; height:30px; width:60px; border:none; border-radius:5px; }
+.menu {  position: absolute; left: -20px; background-color: #cfedec;
+background-image: linear-gradient(90deg, #cfedec 0%, #f7f1e1 100%);
+ opacity: 0.7; border-radius: 30px;width:100px; height: 220px;}
+span {text-align:center; cursor: grab;}
+
+</style>
+
+</head>
+<link rel="icon" href="Images/L332.png">
+<body class="center">
+<h1 >Animate Your Sprite Sheet </h1> <br><br><br><br><br><br>
+
+
+<img id="myImg" height="300px" width="300px"src="Images/Running/img0.png" ><br>
+<label class="button">Speed  </label><br>
+<input type="range" id="speed" style="cursor:grab; width:150px;"class="button" min="50" max="200" onchange="speed()">
+<div class="menu"><br><span onclick="running()"><img src="Images/Running/img0.png" height="30px" width="30px"><br> Running </span> <hr> <span onclick="diving()"><img src="Images/Diving/img0.png" height="30px" width="30px"><br> Diving </span> <hr>
+<span onclick="flying()"><img src="Images/Flying/img0.png" height="30px" width="30px"><br> Flying </span>
+</div>
+<!-- يتم طرح ٢٤٠ من قيمة السرعة المختارة من المستخدم  كي تزداد السرعة عند اعلى المؤشر 
+وتنخفض عند ادناه The value of the top of the range is high and at the bottom of it is low and that conflicts with the speed concept so to re-balance the equation we subtract the value whithin 240 -->
+
+<script>
+var myLoop;
+var index=0;
+var type ="Running";
+var speedValue= 120;
+
+var length = 5; //  اخر صورة index الطول هو 
+moveImg();
+ 
+
+function speed(){
+ 
+speedValue= 240 - document.getElementById("speed").value ; 
+clearInterval(myLoop);
+myLoop= setInterval(function(){ changeImg(); }, speedValue); 
+}
+
+function running(){
+ type ="Running";
+length = 5;
+document.getElementById("myImg").src= "Images/"+type+"/img0.png";
+document.getElementById("myImg").style.width= "300px";
+document.getElementById("myImg").style.height= "300px" 
+}
+function diving(){
+ type ="Diving";
+ length = 8;
+document.getElementById("myImg").src= "Images/"+type+"/img0.png";
+document.getElementById("myImg").style.width= "320px";
+document.getElementById("myImg").style.height= "300px" 
+}
+function flying(){
+ type ="Flying";
+ length = 7;
+document.getElementById("myImg").src= "Images/"+type+"/img0.png";
+document.getElementById("myImg").style.width= "170px";
+document.getElementById("myImg").style.height= "170px";
+}
+function changeImg(){
+
+if(index<length){ 
+index=index+1;
+ document.getElementById("myImg").src= "Images/"+type+"/img"+index+".png";
+}
+else // في حال وصلت لاخر صورة
+{
+index=0;
+document.getElementById("myImg").src= "Images/"+type+"/img"+index+".png";
+
+}
+} 
+
+
+function moveImg(){
+myLoop= setInterval(function(){ changeImg(); }, speedValue); 
+  
+}
+
+
+
+</script>
+<div id="footer">&copy; Rahaf "2020"</div> 
+</body>
+</html>
